@@ -9,7 +9,7 @@
         <script name="todos" class="jst" type="text/plain">
             <ul>
                 <% _(items).each(function(item) { %>
-                <li>
+                <li data-todo-id="<%= item.id %>">
                     <input type="checkbox" <%= item.checked ? "checked" : "" %> />
                     <span>
                         <%= item.title %>
@@ -21,8 +21,10 @@
         <script type="text/javascript" src="todo.js"></script>
     </head>
     <body>
+        <label>Todo</label>
         <div id="todo">
         </div>
+        <label>Done</label>
         <div id="done">
         </div>
     </body>
