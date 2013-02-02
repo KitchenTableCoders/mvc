@@ -1,6 +1,5 @@
 if(typeof window == "undefined") {
-  var Underscore = require("underscore"),
-      jQuery     = require("jquery");
+  var Underscore = require("underscore");
 }
 
 ;(function(global, j, _) {
@@ -9,7 +8,6 @@ if(typeof window == "undefined") {
                {checked: false, title: "See you later!"}];
 
   function addItem(x) {
-    x.id = items.length;
     items.push(x);
   }
 
@@ -17,12 +15,16 @@ if(typeof window == "undefined") {
     items[x.id] = x;
   }
 
-  function removeItem() {
-    items.splice(x.id,1);
+  function removeItem(id) {
+    items.splice(id,1);
   }
 
-  function renderItems() {
-    j("#main").html(JST["todos"](items));
+  function renderItems() {    
+    j("#main").html(JST["todos"]({items:items}));
+    var checked = _(items).filter(function(item) { return item.checked; });
+    j("#checked").html(JST["todos"]({items:checked}));
+    var unchecked = _(items).filter(function(item) { return !item.checked; });
+    j("#unchecked").html(JST["todos"]({items:unchecked}));
   }
 
   function initJST() {
@@ -41,17 +43,21 @@ if(typeof window == "undefined") {
     j(document).ready(init);
   }
 
-  // for debugging
+  // for debugging & testing
   var toExport = {
       JST: JST,
       items: items,
+      addItem: addItem,
+      removeItem: removeItem,
       renderItems: renderItems
   };
 
   if(typeof window != "undefined") {
+    // For the browser
     global.Todo = {};
     _.extend(global.Todo, toExport);
   } else {
+    // For node.js
     exports.Todo = toExport;
   }
-})(this, jQuery, Underscore);
+})(this, (typeof jQuery != "undefined" ? jQuery : null), Underscore);
