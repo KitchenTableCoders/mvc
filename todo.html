@@ -6,7 +6,7 @@
         <script type="text/javascript">
             var Underscore = _.noConflict();
         </script>
-        <script name="todos" class="jst" type="text/html">
+        <script name="todos" class="jst" type="text/plain">
             <ul>
                 <% _(items).each(function(item) { %>
                 <li>
@@ -21,7 +21,7 @@
         <script type="text/javascript" src="todo.js"></script>
     </head>
     <body>
-        <ul id="todos">
-        </ul>
+        <div id="main">
+        </div>
     </body>
 </html>

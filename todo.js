@@ -1,7 +1,7 @@
 ;(function(global, j, _) {
   var JST = {},
-  items = [];
-  
+      items = [{checked: true, title: "Hello world!"},
+               {checked: false, title: "See you later!"}];
 
   function addItem(x) {
     x.id = items.length;
@@ -17,7 +17,7 @@
   }
 
   function renderItems() {
-    JST["todos"](items)
+    j("#main").html(JST["todos"](items));
   }
 
   function initJST() {
@@ -37,5 +37,6 @@
   // for debugging
   global.JST = JST;
   global.items = items;
+  global.renderItems = renderItems;
 
 })(this, jQuery, Underscore);
